@@ -8,8 +8,12 @@ import java.util.List;
 public class Calculator {
     private List<Integer> results;
 
+
     public Calculator() {
         results = new ArrayList<>();
+    }
+    public Calculator(List<Integer> initialResults) {
+        this.results = new ArrayList<>(initialResults);
     }
 
     public int calculate(int firstNumber, int secondNumber, char operator) throws InvalidCalculationException {

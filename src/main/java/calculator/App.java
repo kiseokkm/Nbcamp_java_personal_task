@@ -1,12 +1,17 @@
 package main.java.calculator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import main.java.Exception.InvalidCalculationException;
 
 public class App {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Calculator calc = new Calculator();
+        List<Integer> initialResults = new ArrayList<>(); // 초기 결과 리스트 생성
+        Calculator calc = new Calculator(initialResults);
+
 
         while (true) {
             System.out.print("첫 번째 숫자를 입력하세요: ");
