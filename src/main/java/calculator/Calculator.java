@@ -6,79 +6,66 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Calculator {
-    private List<Integer> results;
+    private List<Double> results;  // Changed from List<Integer> to accommodate both integers and floating-point results
     private List<Double> circleAreas;
 
-    // 수정된 생성자
-    public Calculator(List<Integer> initialResults, List<Double> initialCircleAreas) {
-        this.results = new ArrayList<>(initialResults);
-        this.circleAreas = new ArrayList<>(initialCircleAreas);
+    // Updated constructor to handle the new List<Double> for results
+    public Calculator() {
+        this.results = new ArrayList<>();
+        this.circleAreas = new ArrayList<>();
     }
 
-    public double calculateCircleArea(double radius) {
-        double area = Math.PI * radius * radius; // Math.PI 사용
-        circleAreas.add(area);
-        return area;
-    }
-    public int calculate(int firstNumber, int secondNumber, char operator) throws InvalidCalculationException {
-        int result = 0;
-        switch (operator) {
-            case '+':
-                result = firstNumber + secondNumber;
-                break;
-            case '-':
-                result = firstNumber - secondNumber;
-                break;
-            case '*':
-                result = firstNumber * secondNumber;
-                break;
-            case '/':
-                if (secondNumber == 0) {
-                    throw new InvalidCalculationException("계산불가");
-                }
-                result = firstNumber / secondNumber;
-                break;
-            default:
-                throw new InvalidCalculationException("연산기호가 잘못 됐습니다");
-        }
-        addResult(result); // 결과 추가
-        return result;
-    }
-
-    public List<Integer> getResults() {
-        return new ArrayList<>(results);
-    }
-
-    public void setResults(List<Integer> newResults) {
-        this.results = new ArrayList<>(newResults);
-    }
-
-    public void addResult(int result) {
+    // Adds a result to the results list
+    public void addResult(double result) {
         results.add(result);
     }
 
+    // Gets a copy of the results list
+    public List<Double> getResults() {
+        return new ArrayList<>(results);
+    }
+
+    // Sets a new list of results
+    public void setResults(List<Double> newResults) {
+        this.results = new ArrayList<>(newResults);
+    }
+
+    // Removes the first result from the list if it exists
     public void removeFirstResult() {
         if (!results.isEmpty()) {
             results.remove(0);
         }
     }
-    public void inquiryResults() { //추가
+
+    // Prints all stored results
+    public void inquiryResults() {
         if (!results.isEmpty()) {
             System.out.println("저장된 모든 결과:");
-            for (int res : results) {
+            for (double res : results) {
                 System.out.println(res);
             }
         } else {
             System.out.println("저장된 결과가 없습니다.");
         }
     }
+
+    // Adds a circle area to the circleAreas list
+    public void addCircleArea(double area) {
+        circleAreas.add(area);
+    }
+
+    // Gets a copy of the circleAreas list
     public List<Double> getCircleAreas() {
         return new ArrayList<>(circleAreas);
     }
+
+    // Sets a new list of circle areas
     public void setCircleAreas(List<Double> newCircleAreas) {
         this.circleAreas = new ArrayList<>(newCircleAreas);
     }
-    public void inquiryCircleResults() { // 원의 넓이 결과 조회
+
+    // Prints all stored circle areas
+    public void inquiryCircleResults() {
         if (!circleAreas.isEmpty()) {
             System.out.println("저장된 원의 넓이 결과:");
             for (double area : circleAreas) {
@@ -88,5 +75,4 @@ public class Calculator {
             System.out.println("저장된 원의 넓이 결과가 없습니다.");
         }
     }
-
 }
