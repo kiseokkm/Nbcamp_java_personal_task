@@ -8,13 +8,39 @@ public class App {
 
         System.out.print("첫 번째 숫자를 입력하세요: ");
         int firstNumber = sc.nextInt();
-        // Scanner를 사용하여 양의 정수를 입력받고 적합한 타입의 변수에 저장합니다.
         System.out.print("두 번째 숫자를 입력하세요: ");
         int secondNumber = sc.nextInt();
-        // Scanner를 사용하여 양의 정수를 입력받고 적합한 타입의 변수에 저장합니다.
 
         System.out.print("사칙연산 기호를 입력하세요: ");
         char operator = sc.next().charAt(0);
-        System.out.println("operator = " + operator);
+
+        //사칙연산 구현
+        int result = 0;
+        switch (operator) {
+            case '+' :
+                result = firstNumber + secondNumber;
+                break;
+            case '-' :
+                result = firstNumber - secondNumber;
+                break;
+            case '*' :
+                result = firstNumber * secondNumber;
+                break;
+            case '/' :
+                if (secondNumber == 0) {
+                    System.out.println("다시 입력하세요. 나누기에서 두번째 수는 0 입력 불가능 합니다."); //오류 출력
+                    System.exit(0); //종료
+                } else {
+                    result = firstNumber/ secondNumber;
+                }
+                break;
+            default:
+                System.out.println("사칙연산 기호를 다시 입력하세요.");
+                System.exit(0);
+        }
+
+        System.out.println("결과 : " + result);
+
+
     }
 }
