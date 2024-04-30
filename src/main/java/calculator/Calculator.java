@@ -11,7 +11,7 @@ public class Calculator {
     public Calculator() {
         results = new ArrayList<>();
     }
-    // 사칙연산 메서드
+
     public int calculate(int firstNumber, int secondNumber, char operator) throws InvalidCalculationException {
         int result = 0;
         switch (operator) {
@@ -33,10 +33,25 @@ public class Calculator {
             default:
                 throw new InvalidCalculationException("연산기호가 잘못 됐습니다");
         }
-        results.add(result);
+        addResult(result); // 결과 추가
         return result;
     }
+
     public List<Integer> getResults() {
-        return results;
+        return new ArrayList<>(results);
+    }
+
+    public void setResults(List<Integer> newResults) {
+        this.results = new ArrayList<>(newResults);
+    }
+
+    public void addResult(int result) {
+        results.add(result);
+    }
+
+    public void removeFirstResult() {
+        if (!results.isEmpty()) {
+            results.remove(0);
+        }
     }
 }

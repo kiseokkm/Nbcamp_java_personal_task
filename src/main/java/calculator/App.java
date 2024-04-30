@@ -6,7 +6,7 @@ import main.java.Exception.InvalidCalculationException;
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Calculator calc = new Calculator(); // Calculator 인스턴스 생성
+        Calculator calc = new Calculator();
 
         while (true) {
             System.out.print("첫 번째 숫자를 입력하세요: ");
@@ -60,7 +60,6 @@ public class App {
         for (int res : calc.getResults()) {
             System.out.println(res);
         }
-
         sc.close();
     }
 }
