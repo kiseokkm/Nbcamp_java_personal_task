@@ -1,15 +1,12 @@
 package main.java.calculator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+import main.java.Exception.InvalidCalculationException;
 
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        // ArrayList 생성
-        List<Integer> results = new ArrayList<>();
+        Calculator calc = new Calculator(); // Calculator 인스턴스 생성
 
         while (true) {
             System.out.print("첫 번째 숫자를 입력하세요: ");
@@ -21,73 +18,46 @@ public class App {
             System.out.print("두 번째 숫자를 입력하세요: ");
             int secondNumber = sc.nextInt();
 
-            int result = 0;
-            boolean realOperation = true;
-
-            switch (operator) {
-                case '+':
-                    result = firstNumber + secondNumber;
-                    break;
-                case '-':
-                    result = firstNumber - secondNumber;
-                    break;
-                case '*':
-                    result = firstNumber * secondNumber;
-                    break;
-                case '/':
-                    if (secondNumber == 0) {
-                        System.out.println("다시 입력하세요. 나누기에서 두번째 수는 0이 될 수 없습니다.");
-                        realOperation = false;
-                    } else {
-                        result = firstNumber / secondNumber;
-                    }
-                    break;
-                default:
-                    System.out.println("사칙연산 기호를 다시 입력하세요.");
-                    realOperation = false;
-                    System.exit(0);
-            }
-
-            if (realOperation) {
+            try {
+                int result = calc.calculate(firstNumber, secondNumber, operator);
                 System.out.println("결과: " + result);
-                results.add(result);
-                System.out.println("현재 저장된 결과의 수: " + results.size() + " " + results);
-                //저장된 결과 , 결과의수 출력 ( 이거는 계속 )
-
-
-                System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
-                String removeCmd = sc.next();
-                if (removeCmd.equalsIgnoreCase("remove")) {
-                    if (!results.isEmpty()) {
-                        results.remove(0);
-                        System.out.println("첫 번째 결과가 삭제되었습니다.");
-                    } else {
-                        System.out.println("삭제할 결과가 없습니다.");
-                    }
-                }
-                System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
-                String inquiryLook = sc.next();
-                if (inquiryLook.equalsIgnoreCase("inquiry")) {
-                    if (!results.isEmpty()) {
-                        System.out.println("저장된 모든 결과:");
-                        for (int res : results) {
-                            System.out.println(res);
-                        }
-                    } else {
-                        System.out.println("저장된 결과가 없습니다.");
-                    }
-                }
+            } catch (InvalidCalculationException e) {
+                System.out.println(e.getMessage());
             }
 
+            System.out.println("현재 저장된 결과의 수: " + calc.getResults().size() + " " + calc.getResults());
+
+            System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
+            String removeCmd = sc.next();
+            if (removeCmd.equalsIgnoreCase("remove")) {
+                if (!calc.getResults().isEmpty()) {
+                    calc.getResults().remove(0);
+                    System.out.println("첫 번째 결과가 삭제되었습니다.");
+                } else {
+                    System.out.println("삭제할 결과가 없습니다.");
+                }
+            }
+            System.out.println("저장된 연산 결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
+            String inquiryLook = sc.next();
+            if (inquiryLook.equalsIgnoreCase("inquiry")) {
+                if (!calc.getResults().isEmpty()) {
+                    System.out.println("저장된 모든 결과:");
+                    for (int res : calc.getResults()) {
+                        System.out.println(res);
+                    }
+                } else {
+                    System.out.println("저장된 결과가 없습니다.");
+                }
+            }
             System.out.println("더 계산하시겠습니까? ('exit'를 입력하면 종료합니다)");
             String input = sc.next();
             if (input.equalsIgnoreCase("exit")) {
                 break;
             }
         }
-        // 저장된 모든 결과 출력
+        // 종료 시 최종 저장된 결과 출력
         System.out.println("최종 저장된 결과:");
-        for (int res : results) {
+        for (int res : calc.getResults()) {
             System.out.println(res);
         }
 

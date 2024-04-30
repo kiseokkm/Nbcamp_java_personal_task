@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Calculator {
-    private List<Integer> results; // 연산 결과를 저장하는 리스트
+    private List<Integer> results;
 
     public Calculator() {
         results = new ArrayList<>();
