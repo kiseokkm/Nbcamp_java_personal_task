@@ -7,15 +7,19 @@ import java.util.List;
 
 public class Calculator {
     private List<Integer> results;
+    private List<Double> circleAreas;
 
-
-    public Calculator() {
-        results = new ArrayList<>();
-    }
-    public Calculator(List<Integer> initialResults) {
+    // 수정된 생성자
+    public Calculator(List<Integer> initialResults, List<Double> initialCircleAreas) {
         this.results = new ArrayList<>(initialResults);
+        this.circleAreas = new ArrayList<>(initialCircleAreas);
     }
 
+    public double calculateCircleArea(double radius) {
+        double area = Math.PI * radius * radius; // Math.PI 사용
+        circleAreas.add(area);
+        return area;
+    }
     public int calculate(int firstNumber, int secondNumber, char operator) throws InvalidCalculationException {
         int result = 0;
         switch (operator) {
@@ -66,6 +70,22 @@ public class Calculator {
             }
         } else {
             System.out.println("저장된 결과가 없습니다.");
+        }
+    }
+    public List<Double> getCircleAreas() {
+        return new ArrayList<>(circleAreas);
+    }
+    public void setCircleAreas(List<Double> newCircleAreas) {
+        this.circleAreas = new ArrayList<>(newCircleAreas);
+    }
+    public void inquiryCircleResults() { // 원의 넓이 결과 조회
+        if (!circleAreas.isEmpty()) {
+            System.out.println("저장된 원의 넓이 결과:");
+            for (double area : circleAreas) {
+                System.out.println(area);
+            }
+        } else {
+            System.out.println("저장된 원의 넓이 결과가 없습니다.");
         }
     }
 
