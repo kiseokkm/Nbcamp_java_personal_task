@@ -54,4 +54,15 @@ public class Calculator {
             results.remove(0);
         }
     }
+    public void inquiryResults() { //추가
+        if (!results.isEmpty()) {
+            System.out.println("저장된 모든 결과:");
+            for (int res : results) {
+                System.out.println(res);
+            }
+        } else {
+            System.out.println("저장된 결과가 없습니다.");
+        }
+    }
+
 }

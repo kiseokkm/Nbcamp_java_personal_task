@@ -30,25 +30,16 @@ public class App {
             System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
             String removeCmd = sc.next();
             if (removeCmd.equalsIgnoreCase("remove")) {
-                if (!calc.getResults().isEmpty()) {
-                    calc.getResults().remove(0);
-                    System.out.println("첫 번째 결과가 삭제되었습니다.");
-                } else {
-                    System.out.println("삭제할 결과가 없습니다.");
-                }
+                calc.removeFirstResult();
+                System.out.println("첫 번째 결과가 삭제되었습니다.");
             }
+
             System.out.println("저장된 연산 결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
             String inquiryLook = sc.next();
             if (inquiryLook.equalsIgnoreCase("inquiry")) {
-                if (!calc.getResults().isEmpty()) {
-                    System.out.println("저장된 모든 결과:");
-                    for (int res : calc.getResults()) {
-                        System.out.println(res);
-                    }
-                } else {
-                    System.out.println("저장된 결과가 없습니다.");
-                }
+                calc.inquiryResults(); // 변경
             }
+
             System.out.println("더 계산하시겠습니까? ('exit'를 입력하면 종료합니다)");
             String input = sc.next();
             if (input.equalsIgnoreCase("exit")) {
