@@ -1,14 +1,15 @@
 package main.java.calculator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // 배열생성
-        int[] results = new int[10];
-        int index = 0; // 초기화
+        // ArrayList 생성
+        List<Integer> results = new ArrayList<>();
 
         while (true) {
             System.out.print("첫 번째 숫자를 입력하세요: ");
@@ -49,44 +50,31 @@ public class App {
 
             if (realOperation) {
                 System.out.println("결과: " + result);
-                if (index < 10) {
-                    results[index] = result;
-                    index++; // 인덱스 증가
-                } else {
-                    // 한칸씩 이동
-                    for (int i = 1; i < 10; i++) {
-                        results[i - 1] = results[i];
+                results.add(result); // 결과를 리스트에 추가
+                System.out.println("현재 저장된 결과의 수: " + results.size() + " " + results);
+
+                System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
+                String removeCmd = sc.next();
+                if (removeCmd.equalsIgnoreCase("remove")) {
+                    if (!results.isEmpty()) {
+                        results.remove(0);
+                        System.out.println("첫 번째 결과가 삭제되었습니다.");
+                    } else {
+                        System.out.println("삭제할 결과가 없습니다.");
                     }
-                    results[9] = result;
                 }
-                System.out.println("현재 저장된 결과의 수: " + index);
             }
-            System.out.print("현재 저장된 결과의 수: " + index);
-            System.out.print(" (");
-            for (int i = 0; i < index; i++) {
-                System.out.print(results[i] + (i < index - 1 ? ", " : "")); // 옮겨지나 확인
-            }
-            System.out.println(")");
-
-            // 더 계산 하려면 'go' '해' 입력 
-            /*System.out.println("더 계산하시겠습니까? ('go' 또는 '해'를 입력하면 계속합니다, 그 외는 종료)");
+            // 계속 계산할지 묻는 부분
+            System.out.println("더 계산하시겠습니까? ('exit'를 입력하면 종료합니다)");
             String input = sc.next();
-            if (!input.equals("go") && !input.equals("해")) {
-                break;
-            }
-             */
-
-            // exit 입력하면 멈추기
-            System.out.println("계속하시려면 아무 키나 입력하세요 ('exit'를 입력하면 종료합니다)");
-            String input = sc.next();
-            if ( input.equalsIgnoreCase("exit") ||  input.equalsIgnoreCase("ㄷ턋")) {
+            if (input.equalsIgnoreCase("exit")) {
                 break;
             }
         }
-        // 배열에 저장된 모든 결과 출력
-        System.out.println("저장된 결과:");
-        for (int i = 0; i < index; i++) {
-            System.out.println("결과 " + (i + 1) + ": " + results[i]);
+        // 저장된 모든 결과 출력
+        System.out.println("최종 저장된 결과:");
+        for (int i = 0; i < results.size(); i++) {
+            System.out.println("결과 " + (i + 1) + ": " + results.get(i));
         }
 
         sc.close();
